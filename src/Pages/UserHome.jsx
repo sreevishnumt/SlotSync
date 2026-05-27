@@ -108,20 +108,10 @@ function UserHome() {
             
           </li>
 
-          {/* <li className="hover:bg-cyan-700 px-4 py-3 rounded-xl cursor-pointer transition font-medium">
-            <Link>💼 Service Details</Link>
-            
-          </li> */}
-
           <li onClick={handleDashboard} className="hover:bg-cyan-700 px-4 py-3 rounded-xl cursor-pointer transition font-medium">
             {/* <Link to={"/usdashboard"}>📊 Dashboard</Link> */}
             📊 Dashboard
           </li>
-
-          {/* <li className="hover:bg-cyan-700 px-4 py-3 rounded-xl cursor-pointer transition font-medium">
-            <Link>📞 Customer Care</Link>
-            
-          </li> */}
           <li
             onClick={() => navigate("/customercare")}
             className="hover:bg-cyan-700 px-4 py-3 rounded-xl cursor-pointer transition font-medium"
@@ -129,10 +119,6 @@ function UserHome() {
             📞 Customer Care
           </li>
 
-          {/* <li className="hover:bg-cyan-700 px-4 py-3 rounded-xl cursor-pointer transition font-medium">
-            <Link>👤 User Profile</Link>
-            
-          </li> */}
           <li
             onClick={() => navigate("/profile")}
             className="hover:bg-cyan-700 px-4 py-3 rounded-xl cursor-pointer transition font-medium"
@@ -168,56 +154,6 @@ function UserHome() {
           </p>
         </div>
 
-        {/* Service Cards */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-10">
-
-          {services.map((service) => (
-            <div
-              key={service.id}
-              className="bg-white rounded-2xl shadow-lg p-6 hover:scale-105 transition"
-            >
-
-              <div className="flex justify-between items-center">
-
-                <h2 className="text-2xl font-bold text-cyan-700">
-                  {service.name}
-                </h2>
-
-                <div className="text-yellow-500 font-semibold">
-                  ⭐ {service.rating}
-                </div>
-              </div>
-
-              <div className="mt-5 space-y-3 text-gray-700">
-
-                <p>
-                  <span className="font-semibold">
-                    Opening Hours:
-                  </span>{" "}
-                  {service.time}
-                </p>
-
-                <p>
-                  <span className="font-semibold">
-                    Contact:
-                  </span>{" "}
-                  {service.contact}
-                </p>
-
-                <p>
-                  <span className="font-semibold">
-                    Location:
-                  </span>{" "}
-                  {service.location}
-                </p>
-              </div>
-
-              <button className="mt-6 w-full bg-cyan-500 text-white py-3 rounded-xl font-semibold hover:bg-cyan-600 transition">
-                View Details
-              </button>
-            </div>
-          ))}
-        </div> */}
         
         {/* Service Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-10">
