@@ -3,26 +3,79 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
   const navigate = useNavigate();
+  const [selectedValue,setSelectedValue]=useState('user');
 
-  const [formData, setFormData] = useState({
+  const [userformData, setuserFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
+  const [adminformData, setadminFormData] = useState({
+    name: "",
+    email: "",
+    business:"",
+    password: "",
+  });
+  const handleChange = (e) =>{
+    setSelectedValue(e.target.value);
+  }
+
+  const handleChangeUser = (e) => {
+    // setSelectedValue(e.target.value);
+    setuserFormData({
+      ...userformData,
       [e.target.name]: e.target.value,
     });
+    // setadminFormData({
+    //   ...adminformData,
+    //   [e.target.name]: e.target.value,
+    // });
+  };
+  const handleChangeAdmin = (e)=>{
+    // selectedValue(e.target.value);
+    setadminFormData({
+      ...adminformData,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+//  console.log(selectedValue);
+//  console.log(userformData);
+//  console.log(adminformData);
+ 
+ const handleSubmit = (e) => {
+  e.preventDefault();
+
+  const newAccount = {
+    id: Date.now(),
+    type: selectedValue,
+
+    ...(selectedValue === "user"
+      ? userformData
+      : adminformData),
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // Old Accounts
+  const oldAccounts =
+    JSON.parse(localStorage.getItem("accounts")) || [];
 
-    alert("Registration Successful");
-    navigate("/login");
-  };
+  // Add New Account
+  const updatedAccounts = [
+    ...oldAccounts,
+    newAccount,
+  ];
+
+  // Save
+  localStorage.setItem(
+    "accounts",
+    JSON.stringify(updatedAccounts)
+  );
+
+  alert("Registration Successful");
+
+  navigate("/login");
+};
 
   return (
     <div className="min-h-screen bg-cyan-500 flex items-center justify-center px-4">
@@ -35,7 +88,12 @@ function Register() {
         <p className="text-center text-gray-500 mb-8">
           Register to continue
         </p>
+        <select value={selectedValue} onChange={handleChange} className="text-xl font-bold text-blue-400 mb-2">
+          <option value="user">Client</option>
+          <option value="admin">Business</option>
+        </select>
 
+        {selectedValue==="user" ?(
         <form onSubmit={handleSubmit} className="space-y-5">
 
           <div>
@@ -47,8 +105,8 @@ function Register() {
               type="text"
               name="name"
               placeholder="Enter your name"
-              value={formData.name}
-              onChange={handleChange}
+              value={userformData.name}
+              onChange={handleChangeUser}
               className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-400"
               required
             />
@@ -63,8 +121,8 @@ function Register() {
               type="email"
               name="email"
               placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
+              value={userformData.email}
+              onChange={handleChangeUser}
               className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-400"
               required
             />
@@ -79,8 +137,8 @@ function Register() {
               type="password"
               name="password"
               placeholder="Create password"
-              value={formData.password}
-              onChange={handleChange}
+              value={userformData.password}
+              onChange={handleChangeUser}
               className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-400"
               required
             />
@@ -93,6 +151,80 @@ function Register() {
             Register
           </button>
         </form>
+        ):(
+          <form onSubmit={handleSubmit} className="space-y-5">
+
+          <div>
+            <label className="block mb-2 font-medium text-gray-700">
+              Name
+            </label>
+
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              value={adminformData.name}
+              onChange={handleChangeAdmin}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-400"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-2 font-medium text-gray-700">
+              Email
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={adminformData.email}
+              onChange={handleChangeAdmin}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-400"
+              required
+            />
+          </div>
+          <div>
+            <label className="block mb-2 font-medium text-gray-700">
+              Business
+            </label>
+
+            <input
+              type="text"
+              name="business"
+              placeholder="Enter your business"
+              value={adminformData.business}
+              onChange={handleChangeAdmin}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-400"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-2 font-medium text-gray-700">
+              Password
+            </label>
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Create password"
+              value={adminformData.password}
+              onChange={handleChangeAdmin}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-400"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-cyan-500 text-white py-3 rounded-lg font-semibold hover:bg-cyan-600 transition"
+          >
+            Register
+          </button>
+        </form>
+        )} 
 
         <p className="text-center mt-6 text-sm">
           Already have an account?{" "}

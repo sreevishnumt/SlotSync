@@ -16,20 +16,60 @@ function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    // Dummy Login Validation
-    if (
-      formData.email === "admin@gmail.com" &&
-      formData.password === "12345"
-    ) {
-      alert("Login Successful");
-      navigate("/dashboard");
-    } else {
-      alert("Invalid Email or Password");
-    }
-  };
+  //   // Dummy Login Validation
+  //   if (
+  //     formData.email === "admin@gmail.com" &&
+  //     formData.password === "12345"
+  //   ) {
+  //     alert("Login Successful");
+  //     navigate("/addashboard");
+  //   } else {
+  //     // alert("Invalid Email or Password");
+  //     alert("Login Successful");
+  //     // navigate("/usdashboard");
+  //     navigate("/userhome");
+  //   }
+  // };
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+  // Get Registered Accounts
+  const accounts =
+    JSON.parse(localStorage.getItem("accounts")) || [];
+
+  // Find Matching Account
+  const validUser = accounts.find(
+    (account) =>
+      account.email === formData.email &&
+      account.password === formData.password 
+      // account.type === loginType
+  );
+
+  if (validUser) {
+    alert("Login Successful");
+    console.log(accounts)
+    // // User Login
+    // if (validUser.type === "user") {
+    //   navigate("/userhome");
+    // }
+
+    // // Admin/Business Login
+    // else {
+    //   navigate("/addashboard");
+    // }
+      // Save Current Logged User
+  localStorage.setItem(
+    "loggedUser",
+    JSON.stringify(validUser)
+  );
+    navigate("/userhome");
+  } else {
+    alert("Invalid Email or Password");
+  }
+};
 
   return (
     <div className="min-h-screen bg-cyan-500 flex items-center justify-center px-4">
